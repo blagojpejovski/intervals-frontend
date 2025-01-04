@@ -1,3 +1,5 @@
+"use server";
+
 import { Interval, isInterval } from "./types";
 
 /**
@@ -5,9 +7,9 @@ import { Interval, isInterval } from "./types";
  * @param intervals - An array of Interval objects to merge.
  * @returns An array of merged Interval objects.
  */
-export const mergeOverlappingIntervals = (
+export const mergeOverlappingIntervals = async (
   intervals: Interval[]
-): Interval[] => {
+): Promise<Interval[]> => {
   if (!intervals || intervals.length === 0) {
     return [];
   }
@@ -59,8 +61,8 @@ export const computeMergedIntervals = async (
 
   if (includes.length === 0) return [];
 
-  const mergedIncludes = mergeOverlappingIntervals(includes);
-  const mergedExcludes = mergeOverlappingIntervals(excludes);
+  const mergedIncludes = await mergeOverlappingIntervals(includes);
+  const mergedExcludes = await mergeOverlappingIntervals(excludes);
 
   // If no excludes, return merged includes
   if (mergedExcludes.length === 0) {

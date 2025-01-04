@@ -2,14 +2,14 @@ import { mergeOverlappingIntervals, computeMergedIntervals } from "../server";
 import { Interval } from "../types";
 
 describe("mergeOverlappingIntervals", () => {
-  it("should merge overlapping intervals", () => {
+  it("should merge overlapping intervals", async () => {
     const intervals: Interval[] = [
       { start: 1, end: 3 },
       { start: 2, end: 6 },
       { start: 8, end: 10 },
       { start: 15, end: 18 },
     ];
-    const merged = mergeOverlappingIntervals(intervals);
+    const merged = await mergeOverlappingIntervals(intervals);
     expect(merged).toEqual([
       { start: 1, end: 6 },
       { start: 8, end: 10 },
@@ -17,8 +17,8 @@ describe("mergeOverlappingIntervals", () => {
     ]);
   });
 
-  it("should return empty array when input is empty", () => {
-    const merged = mergeOverlappingIntervals([]);
+  it("should return empty array when input is empty", async () => {
+    const merged = await mergeOverlappingIntervals([]);
     expect(merged).toEqual([]);
   });
 });
